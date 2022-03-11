@@ -2,7 +2,7 @@ package Programmers.hash.level2;
 
 import java.util.*;
 
-class Solution {
+class Solution_42577 {
     /*
     프로그래머스 > 해시 > Level1 > Lesson_42577 > 전화번호 목록
     URL : https://programmers.co.kr/learn/courses/30/lessons/42577
@@ -34,18 +34,6 @@ class Solution {
     테스트 3 〉	통과 (326.08ms, 251MB)
     테스트 4 〉	통과 (222.65ms, 135MB)
      */
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        String[] numbers1 = {"119", "97674223", "1195524421"};
-        String[] numbers2 = {"123","456","789"};
-
-        boolean result1 = solution.solution(numbers1);
-        boolean result2 = solution.solution(numbers2);
-
-        System.out.println("result1 : " + result1);
-        System.out.println("result2 : " + result2);
-    }
 
     public boolean solution(String[] phone_book) {
         Map<String, String> phoneNumberMap = new HashMap<>();
