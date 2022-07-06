@@ -1,4 +1,4 @@
-package CodingTestBook;
+package BackJoon.list;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ import java.util.Scanner;
     입력으로 주어진 숫자 N개의 합을 출력한다.
 */
 
-public class SumNNumber {
+public class q11720 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

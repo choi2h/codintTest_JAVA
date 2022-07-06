@@ -1,4 +1,4 @@
-package CodingTestBook;
+package BackJoon.list;
 
 public class NCount {
     public static void main(String[] args) {
