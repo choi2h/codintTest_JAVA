@@ -1,13 +1,13 @@
 package inflearn;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
-StringBuilder(s).reverse(); -> 뒤집어줌
+    단어 뒤집기
+    StringBuilder(s).reverse(); -> 뒤집어줌
  */
-public class ReverseWord {
+public class Q4 {
 
     public ArrayList<String> solution(int n, String[] str) {
         ArrayList<String> list = new ArrayList<>();
@@ -43,7 +43,7 @@ public class ReverseWord {
     }
 
     public static void main(String[] args) {
-        ReverseWord reverseWord = new ReverseWord();
+        Q4 reverseWord = new Q4();
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         String[] str = new String[n];

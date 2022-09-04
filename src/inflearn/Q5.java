@@ -2,8 +2,12 @@ package inflearn;
 
 import java.util.Scanner;
 
-//Character.isAlphabetic 알파벳이면 true 반환
-public class ReverseSpecificCharacter {
+/*
+    특정 문자 뒤집기
+    toCharArray()
+    Character.isAlphabetic 알파벳이면 true 반환
+ */
+public class Q5 {
     public String solution(String str) {
         char[] chars = str.toCharArray();
         int lt = 0;
@@ -36,7 +40,7 @@ public class ReverseSpecificCharacter {
     */
 
     public static void main(String[] args) {
-        ReverseSpecificCharacter r = new ReverseSpecificCharacter();
+        Q5 r = new Q5();
         Scanner s = new Scanner(System.in);
         String inputText = s.next();
 

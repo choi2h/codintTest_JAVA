@@ -2,7 +2,12 @@ package inflearn;
 
 import java.util.Scanner;
 
-public class WordsInSentence {
+/*
+    문장 속 단어
+    indexOf()
+    subString()
+ */
+public class Q3 {
     public String solution(String str) {
         String answer="";
 
@@ -34,7 +39,7 @@ public class WordsInSentence {
     }
 
     public static void main(String[] args) {
-        WordsInSentence T = new WordsInSentence();
+        Q3 T = new Q3();
         Scanner scanner = new Scanner(System.in);
         String sentence = scanner.nextLine();
         System.out.print(T.solution(sentence));

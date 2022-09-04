@@ -1,11 +1,11 @@
 package inflearn;
 
-import com.sun.tools.javac.Main;
-
-import java.util.Locale;
 import java.util.Scanner;
 
-public class SearchMessage {
+/*
+ * 문자 찾기
+ */
+public class Q1 {
 
     public int solution(String str, char t) {
         int answer = 0;
@@ -31,7 +31,7 @@ public class SearchMessage {
     }
 
     public static void main(String[] args) {
-        SearchMessage T = new SearchMessage();
+        Q1 T = new Q1();
         Scanner scanner = new Scanner(System.in);
         String str = scanner.next();
         char c = scanner.next().charAt(0);

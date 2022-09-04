@@ -3,6 +3,7 @@ package inflearn;
 import java.util.Scanner;
 
 /*
+    대소문자 변환
     character
     - 대문자 변환 : toUpperCase(char c)
     - 소문자 변환 : toLowerCase(char c)
@@ -12,7 +13,7 @@ import java.util.Scanner;
     대문자 : 65~90
     소문자 : 97~122
  */
-public class LetterCase {
+public class Q2 {
 
     public String solution(String str) {
         String answer="";
@@ -38,7 +39,7 @@ public class LetterCase {
     }
 
     public static void main(String[] args) {
-        LetterCase letterCase = new LetterCase();
+        Q2 letterCase = new Q2();
         Scanner scanner = new Scanner(System.in);
         String str = scanner.next();
         System.out.print(letterCase.solution(str));
