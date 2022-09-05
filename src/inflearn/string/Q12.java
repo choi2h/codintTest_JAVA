@@ -1,7 +1,7 @@
-package inflearn;
+package inflearn.string;
 
 import java.util.Scanner;
-햐
+
 /*
     암호
     parseInt(string,2) : sting의 값이 2진수이며 이를 int 10진수로 변경함

@@ -1,12 +1,9 @@
-package inflearn;
+package inflearn.string;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /*
     문자거리
-
  */
 public class Q10 {
     public int[] solution(String str, char point) {
