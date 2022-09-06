@@ -19,17 +19,26 @@ import java.util.Scanner;
     1 1 2 3 5 8 13 21 34 55
  */
 public class Q4 {
-    public int[] solution(int count) {
-        int[] resultList = new int[count];
+    public void solution(int count) {
+//        int[] resultList = new int[count];
+//        resultList[0] = 1;
+//        resultList[1] = 1;
+//
+//        for(int i=2; i<count; i++) {
+//            resultList[i] = resultList[i-1] + resultList[i-2];
+//        }
+//        return resultList;
 
-        resultList[0] = 1;
-        resultList[1] = 1;
+        // 배열을 사용하지 말아라
+        int a=1, b=1, c;
+        System.out.print(a+ " " + b + " ");
 
         for(int i=2; i<count; i++) {
-            resultList[i] = resultList[i-1] + resultList[i-2];
+            c=a+b;
+            System.out.print(c + " " );
+            a=b;
+            b=c;
         }
-
-        return resultList;
     }
 
     public static void main(String[] args) {
@@ -37,9 +46,10 @@ public class Q4 {
         int count = in.nextInt();
 
         Q4 q = new Q4();
-        int[] result= q.solution(count);
-        for(Integer i : result) {
-            System.out.print(i + " ");
-        }
+//        int[] result= q.solution(count);
+//        for(Integer i : result) {
+//            System.out.print(i + " ");
+//        }
+        q.solution(count);
     }
 }
