@@ -2,7 +2,7 @@ package inflearn.greedy;
 
 import java.util.Scanner;
 
-public class Q7 {
+public class Q6 {
     static int[] unf;
 
     public static int Find(int v) {
