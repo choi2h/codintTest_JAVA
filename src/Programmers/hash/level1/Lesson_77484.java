@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class lesson_77484 {
+public class Lesson_77484 {
     public int[] solution(int[] lottos, int[] win_nums) {
         int[] answer = new int[2];
 
@@ -63,7 +63,7 @@ public class lesson_77484 {
             win_nums[i] = in.nextInt();
         }
 
-        lesson_77484 l = new lesson_77484();
+        Lesson_77484 l = new Lesson_77484();
         int[] result = l.solution(lottos, win_nums);
         for(int i = 0; i<2; i++) {
             System.out.println(result[i]);

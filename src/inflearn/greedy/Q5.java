@@ -2,18 +2,18 @@ package inflearn.greedy;
 
 import java.util.*;
 
-class Edge implements Comparable<Edge> {
+class Edge1 implements Comparable<Edge1> {
     public int vex;
     public int cost;
 
-    Edge(int vex, int cost) {
+    Edge1(int vex, int cost) {
         this.vex = vex;
         this.cost = cost;
     }
 
 
     @Override
-    public int compareTo(Edge ob) {
+    public int compareTo(Edge1 ob) {
         return this.cost-ob.cost;
     }
 }
@@ -21,25 +21,25 @@ class Edge implements Comparable<Edge> {
 public class Q5 {
 
     static int n,m;
-    static List<List<Edge>> graph;
+    static List<List<Edge1>> graph;
     static int[] dis;
 
     public void solution(int v) {
-        PriorityQueue<Edge> pQ = new PriorityQueue<>();
-        pQ.offer(new Edge(v, 0));
+        PriorityQueue<Edge1> pQ = new PriorityQueue<>();
+        pQ.offer(new Edge1(v, 0));
         dis[v]=0;
         while(!pQ.isEmpty()) {
-            Edge tmp = pQ.poll();
+            Edge1 tmp = pQ.poll();
             int now = tmp.vex;
             int nowCost = tmp.cost;
             if(nowCost>dis[now]) {
                 continue;
             }
 
-            for(Edge ob : graph.get(now)) {
+            for(Edge1 ob : graph.get(now)) {
                 if(dis[ob.vex] > nowCost+ob.cost) {
                     dis[ob.vex] = nowCost+ob.cost;
-                    pQ.offer(new Edge(ob.vex, nowCost+ob.cost));
+                    pQ.offer(new Edge1(ob.vex, nowCost+ob.cost));
                 }
             }
         }
@@ -61,7 +61,7 @@ public class Q5 {
             int a = in.nextInt();
             int b = in.nextInt();
             int c = in.nextInt();
-            graph.get(a).add(new Edge(b, c));
+            graph.get(a).add(new Edge1(b, c));
         }
         q.solution(1);
         for(int i=2; i<=n; i++) {

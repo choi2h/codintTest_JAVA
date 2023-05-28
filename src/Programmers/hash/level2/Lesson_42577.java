@@ -2,7 +2,7 @@ package Programmers.hash.level2;
 
 import java.util.*;
 
-class Solution_42577 {
+class Lesson_42577 {
     /*
     프로그래머스 > 해시 > Level1 > Lesson_42577 > 전화번호 목록
     URL : https://programmers.co.kr/learn/courses/30/lessons/42577

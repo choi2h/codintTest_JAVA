@@ -1,10 +1,22 @@
-package Programmers.Array;
+package Programmers.Array.level2;
 
 /*
-    문제
+    행렬 테두리 회전하기
     https://school.programmers.co.kr/learn/courses/30/lessons/77485?language=java#
+
+    테스트 1 〉	통과 (0.04ms, 74.4MB)
+    테스트 2 〉	통과 (0.03ms, 77.7MB)
+    테스트 3 〉	통과 (18.54ms, 91.1MB)
+    테스트 4 〉	통과 (10.19ms, 104MB)
+    테스트 5 〉	통과 (16.08ms, 87.9MB)
+    테스트 6 〉	통과 (17.29ms, 93.4MB)
+    테스트 7 〉	통과 (19.84ms, 89.9MB)
+    테스트 8 〉	통과 (13.07ms, 96MB)
+    테스트 9 〉	통과 (14.86ms, 98.2MB)
+    테스트 10 〉	통과 (8.54ms, 91MB)
+    테스트 11 〉	통과 (13.54ms, 94.9MB)
  */
-public class lesson_77485 {
+public class Lesson_77485 {
     public int[] solution(int rows, int columns, int[][] queries) {
         int[] answer = new int[queries.length];
         int[][] graph = new int[rows][columns];
@@ -71,7 +83,7 @@ public class lesson_77485 {
     //     int[][] queries = new int[][]{{1,1,2,2},{1,2,2,3},{2,1,3,2},{2,2,3,3}} ;
     //     int[][] queries = new int[][]{{1,1,100,97}};
 
-         lesson_77485 l = new lesson_77485();
+         Lesson_77485 l = new Lesson_77485();
          int[] result = l.solution(rows, columns, queries);
          for(int i=0; i<result.length; i++) {
              System.out.println(result[i] + ", ");

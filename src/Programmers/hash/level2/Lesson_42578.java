@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-class Solution{
+class Lesson_42578 {
       /*
       프로그래머스 > 해시 > Level1 > Lesson_42578 > 위장
         URL : https://programmers.co.kr/learn/courses/30/lessons/42578
