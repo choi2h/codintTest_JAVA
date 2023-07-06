@@ -1,8 +1,9 @@
 package Programmers.etc.level1;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/*
+기사단원의 무기
+URL : https://school.programmers.co.kr/learn/courses/30/lessons/136798
+ */
 public class Lesson_136798 {
 
     public int solution(int number, int limit, int power) {
