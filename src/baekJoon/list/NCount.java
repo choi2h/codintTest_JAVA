@@ -1,4 +1,4 @@
-package BackJoon.list;
+package baekJoon.list;
 
 public class NCount {
     public static void main(String[] args) {

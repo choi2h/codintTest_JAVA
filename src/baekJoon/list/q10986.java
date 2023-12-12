@@ -1,4 +1,4 @@
-package BackJoon.list;
+package baekJoon.list;
 
 import java.util.Scanner;
 

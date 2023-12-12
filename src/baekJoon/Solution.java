@@ -1,4 +1,4 @@
-package BackJoon;
+package baekJoon;
 
 class Solution {
     public int solution(int[][] triangle) {
