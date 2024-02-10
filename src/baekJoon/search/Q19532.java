@@ -1,0 +1,28 @@
+package baekJoon.search;
+
+import java.util.Scanner;
+/*
+수학은 비대면 강의입니다
+https://www.acmicpc.net/problem/19532
+ */
+public class Q19532 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int d = sc.nextInt();
+        int e = sc.nextInt();
+        int f = sc.nextInt();
+
+        for(int x=-999; x<=999; x++) {
+            for(int y=-999; y<=999; y++) {
+                if((a*x)+(b*y) == c && (d*x)+(e*y) == f) {
+                    System.out.println(x + " " + y);
+                    break;
+                }
+            }
+        }
+    }
+}
