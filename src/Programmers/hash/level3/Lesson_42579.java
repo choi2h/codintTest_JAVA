@@ -78,10 +78,10 @@ public class Lesson_42579 {
 
     public static void main(String[] args) {
 //        String[] a = {"classic", "pop", "classic", "classic", "pop"};
-//        String[] a = {"A", "A", "B", "A", "B", "B"};
-        String[] a = {"B"};
-        int[] b = {500};
-//        int[] b = {5, 5, 6, 5, 7, 7};
+        String[] a = {"A", "A", "B", "A", "B", "B"};
+//        String[] a = {"B"};
+//        int[] b = {500};
+        int[] b = {5, 5, 6, 5, 7, 7};
 //        int[] b = {500, 600, 150, 800, 2500};
 
         Lesson_42579 l = new Lesson_42579();

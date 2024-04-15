@@ -1,8 +1,6 @@
 package Programmers.hash.level2;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 class Lesson_42578 {
       /*
@@ -40,23 +38,19 @@ class Lesson_42578 {
         테스트 28 〉	통과 (0.08ms, 77.1MB)
     */
     public int solution(String[][] clothes) {
-        Map<String, Integer> clotheMap = new HashMap<>();
-
-        for (int i = 0; i < clothes.length; i++) {
-            String clothingType = clothes[i][1];
-
-            int count = clotheMap.getOrDefault(clothingType, 0) + 1;
-            clotheMap.put(clothingType, count);
+        Map<String, Integer> clothesTypeCountMap = new HashMap<>();
+        for(String[] clothe : clothes) {
+            // 타입별로 개수 정리
+            clothesTypeCountMap.put(clothe[1], clothesTypeCountMap.getOrDefault(clothe[1], 0)+1);
         }
 
-        int totalClotheCount = 1;
-
-        Set<String> clotheSet = clotheMap.keySet();
-        for (String clotheType : clotheSet) {
-            totalClotheCount *= clotheMap.get(clotheType) + 1;
+        int answer = 1;
+        for(int count : clothesTypeCountMap.values()) {
+            // 안입는 경우도 포함하여 경우의 수 +1
+            answer *= count+1;
         }
 
-
-        return totalClotheCount - 1;
+        // 모든 옷을 안 입는 경우도 포함되어 있으므로-1
+        return answer-1;
     }
 }

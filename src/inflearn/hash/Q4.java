@@ -27,28 +27,12 @@ public class Q4 {
     public int solution(String a, String b) {
         int answer=0;
 
-      /*  Map<Character, Integer> bMap = new HashMap<>();
-        for(int i=0; i<b.length(); i++) {
-            bMap.put(b.charAt(i), bMap.getOrDefault(b.charAt(i), 0)+1);
-        }
-
-        Map<Character, Integer> aMap = new HashMap<>();
-        for(int i=0; i<a.length(); i++) {
-            aMap.put(a.charAt(i), aMap.getOrDefault(a.charAt(i),0)+1);
-
-            if(i>=b.length()-1) {
-                if(aMap.equals(bMap)) answer++;
-                char j = a.charAt(i-(b.length()-1));
-                aMap.put(j, aMap.get(j)-1);
-
-                if(aMap.get(j) == 0) aMap.remove(j);
-            }
-        }
-        */
-
         Map<Character, Integer> am = new HashMap<>();
         Map<Character, Integer> bm = new HashMap<>();
-        for(char x : b.toCharArray()) bm.put(x, bm.getOrDefault(x, 0)+1);
+        for(char x : b.toCharArray()) {
+            //
+            bm.put(x, bm.getOrDefault(x, 0)+1);
+        }
         int L = b.length()-1;
         for(int i=0; i<L; i++) am.put(a.charAt(i), am.getOrDefault(a.charAt(i), 0)+1);
         int lt = 0;
