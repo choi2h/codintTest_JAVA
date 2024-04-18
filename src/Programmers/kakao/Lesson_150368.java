@@ -3,6 +3,8 @@ package Programmers.kakao;
 
 import java.util.Arrays;
 
+// 2023 KAKAO BLIND RECRUITMENT
+// 이모티콘 할인행사
 public class Lesson_150368 {
 
     // 이모티콘마다 할인율은 다를 수 있으며, 할인율은 10%, 20%, 30%, 40% 중 하나로 설정됩니다.

@@ -3,7 +3,9 @@ package Programmers.kakao;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Lesson_268712 {
+// 2024 KAKAO WINTER INTERNSHIP
+// 가장 많이 받은 선물
+public class Lesson_258712 {
 
     public int solution(String[] friends, String[] gifts) {
         Map<String, Integer> nameIndexMap = new HashMap<>();
@@ -76,7 +78,7 @@ public class Lesson_268712 {
     }
 
     public static void main(String[] args) {
-        Lesson_268712 lesson = new Lesson_268712();
+        Lesson_258712 lesson = new Lesson_258712();
 //        String[] friends = {"muzi", "ryan", "frodo", "neo"};
 //        String[] friends = {"joy", "brad", "alessandro", "conan", "david"};
         String[] friends = {"a", "b", "c"};

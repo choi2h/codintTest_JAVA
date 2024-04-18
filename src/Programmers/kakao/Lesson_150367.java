@@ -2,6 +2,8 @@ package Programmers.kakao;
 
 import java.util.Arrays;
 
+// 2023 KAKAO BLIND RECRUITMENT
+// 표현 가능한 이진트리
 public class Lesson_150367 {
 
     public int[] solution(long[] numbers) {

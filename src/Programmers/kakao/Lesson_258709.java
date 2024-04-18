@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+// 2024 KAKAO WINTER INTERNSHIP
+// 주사위 고르기
 public class Lesson_258709 {
 
     private int maxWinCount = 0;

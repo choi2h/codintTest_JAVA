@@ -3,6 +3,8 @@ package Programmers.kakao;
 import java.time.LocalDate;
 import java.util.*;
 
+// 2023 KAKAO BLIND RECRUITMENT
+// 개인정보 수집 유효기간
 public class Lesson_150370 {
 
     public int[] solution(String today, String[] terms, String[] privacies) {

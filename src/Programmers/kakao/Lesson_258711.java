@@ -2,6 +2,8 @@ package Programmers.kakao;
 
 import java.util.*;
 
+// 2024 KAKAO WINTER INTERNSHIP
+// 도넛과 막대 그래프
 public class Lesson_258711 {
 
     Map<Integer, List<Integer>> incomingEdgeMap = new HashMap<>();
