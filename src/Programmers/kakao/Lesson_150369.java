@@ -41,6 +41,8 @@ public class Lesson_150369 {
         // 수거 박스 배열을 순회할 인덱스
         int pIndex = n-1;
         // 모든 배달이 끝날 때 까지 순회
+        // 만약 수거하는 곳이 더 멀리 있다면 가는길에 배달을 두고 감
+        // 만약 배달앟는 곳이 더 멀리 있다면 배달 후 돌아오는 길에 수거
         while (dIndex>=0 || pIndex>=0) {
             // --> 최대 박스 개수 cap을 넘지 않아야 함
             int currentBoxCount = cap;
@@ -88,11 +90,6 @@ public class Lesson_150369 {
                     currentBoxCount += pickupBoxCount;
                 }
             }
-
-
-            // 배달과 수거 중 더 먼 집(인덱스 수가 더 큰쪽)을 향해 들림
-            // 만약 수거하는 곳이 더 멀리 있다면 가는길에 배달을 두고 감
-            // 만약 배달앟는 곳이 더 멀리 있다면 배달 후 돌아오는 길에 수거
 
 
             answer += move;
