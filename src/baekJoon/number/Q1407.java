@@ -3,29 +3,23 @@ package baekJoon.number;
 import java.util.Scanner;
 
 public class Q1407 {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         long s = sc.nextLong();
-        long e = sc.nextInt();
+        long e = sc.nextLong();
 
-        int answer = 0;
-        for(long i=s; i<=e; i++) {
-            if(i%2 != 0) {
-                answer += 1;
-                continue;
-            }
+        long result = find(e, 0) - find(s-1, 0);
 
-            int p = 0;
-            long o = 0;
-            long n = (long) Math.pow(2, ++p);
-            while(n <= i && i%n == 0) {
-                o = n;
-                n = (long) Math.pow(2, ++p);
-            }
+        System.out.println(result);
+    }
 
-            answer += o;
+    static long find(long n, int p) {
+        if(n<=0) {
+            return 0L;
         }
 
-        System.out.println(answer);
+        long count = n%2==0 ? n/2 : (n/2)+1;
+        return (long)(count*Math.pow(2, p)) + find(n-count, ++p);
     }
 }
