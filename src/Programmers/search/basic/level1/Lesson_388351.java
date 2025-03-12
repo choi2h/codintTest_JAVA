@@ -1,4 +1,4 @@
-package Programmers;
+package Programmers.search.basic.level1;
 
 public class Lesson_388351 {
     // 출근 희망시각 + 10분까지 어플로 출근해야 한다.

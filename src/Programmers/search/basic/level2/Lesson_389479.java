@@ -1,4 +1,4 @@
-package Programmers;
+package Programmers.search.basic.level2;
 
 
 public class Lesson_389479 {
@@ -7,7 +7,6 @@ public class Lesson_389479 {
     // 증설한 서버는 k시간 동안 운영
     // 최소 몇 번 증설해야하는지 알고싶다.
     // 같은 시간대에 서버를 x대 증설했다면 해당 시간대의 증설 횟수는 x회이다.
-    //
     public int solution(int[] players, int m, int k) {
         int answer = 0;
 

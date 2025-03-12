@@ -1,4 +1,4 @@
-package Programmers;
+package Programmers.search.basic.level1;
 
 import java.util.Arrays;
 

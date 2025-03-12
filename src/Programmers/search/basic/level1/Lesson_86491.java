@@ -1,4 +1,4 @@
-package Programmers.search.exhaustive.level1;
+package Programmers.search.basic.level1;
 
 /*
 최소직사각형

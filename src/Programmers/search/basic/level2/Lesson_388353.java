@@ -1,4 +1,4 @@
-package Programmers;
+package Programmers.search.basic.level2;
 
 
 public class Lesson_388353 {
