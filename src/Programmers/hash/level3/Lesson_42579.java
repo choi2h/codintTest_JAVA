@@ -31,7 +31,7 @@ public class Lesson_42579 {
         }
 
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(genresPlayCountMap.entrySet());
-        entries.sort(new Comparator<Map.Entry<String, Integer>>() {
+        entries.sort(new Comparator<>() {
             public int compare(Map.Entry<String, Integer> obj1, Map.Entry<String, Integer> obj2) {
                 return obj2.getValue().compareTo(obj1.getValue());
             }
