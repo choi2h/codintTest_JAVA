@@ -1,16 +1,11 @@
 package Programmers.dfsbfs;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Lesson_49189 {
-    List<Integer>[] record;
-    int[] dp;
 
     public int solution(int n, int[][] edge) {
-        record = new List[n+1];
-        dp = new int[n + 1];
+        List<Integer>[] record = new List[n+1];
         for(int[] line : edge) {
             if(record[line[0]] == null) record[line[0]] = new ArrayList<>();
             if(record[line[1]] == null) record[line[1]] = new ArrayList<>();
@@ -19,39 +14,37 @@ public class Lesson_49189 {
             record[line[1]].add(line[0]);
         }
 
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(1);
         boolean[] visited = new boolean[n+1];
-        visited[1] = true;
-        dfs(1, 0, visited);
+        int[] dp = new int[n + 1];
+        while (!queue.isEmpty()) {
+            int cur =  queue.remove();
+            if(visited[cur]) continue;
+
+            visited[cur] = true;
+            for(int i : record[cur]) {
+                queue.add(i);
+                dp[i] = !visited[i] && dp[i] == 0 ? dp[cur]+1 : Math.min(dp[cur] + 1, dp[i]);
+            }
+        }
 
         int maxValue = 0;
         int count = 0;
-        for(int i : dp) {
-            if (maxValue < i) {
-                maxValue = i;
+        for(int j : dp) {
+            if (maxValue < j) {
+                maxValue = j;
                 count = 1;
-                continue;
-            }
-
-            if(maxValue == i) count++;
+            } else if(maxValue == j) count++;
         }
 
         return count;
     }
 
-    private void dfs(int i, int count, boolean[] visited) {
-        dp[i] = count;
-        for(int j : record[i]) {
-            if(!visited[j] && (dp[j] == 0 || dp[j] > count+1)) {
-                visited[j] = true;
-                dfs(j, count + 1, visited);
-                visited[j] = false;
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Lesson_49189 sol = new Lesson_49189();
         int result = sol.solution(6, new int[][]{{3, 6}, {4, 2}, {3,2}, {1,3}, {1,2}, {2,4}, {5,2}});
+//        int result = sol.solution(6, new int[][]{{3, 6}, {4, 2}, {3,2}, {1,2}, {2,4}, {5,4}});
         System.out.println(result);
     }
 }
