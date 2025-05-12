@@ -1,37 +1,60 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
-        int n = queue1.length;
-        Deque<Integer> q1 = new ArrayDeque();
-        Deque<Integer> q2 = new ArrayDeque();
-        long tot1 = 0, tot2 = 0;
-        for(int i = 0; i < n; i++){
-            tot1 += queue1[i];
-            q1.add(queue1[i]);
-        }
-        for(int i = 0; i < n; i++){
-            tot2 += queue2[i];
-            q2.add(queue2[i]);
+       int queue1Sum = 0;
+        Queue<Integer> q1 = new LinkedList<>();
+        for(int i : queue1) {
+            queue1Sum+=i;
+            q1.offer(i);
         }
 
-        for(int i = 0; i < 4*n + 1; i++){
-            if(tot1 == tot2) return i;
-            if(tot1 < tot2){
-                int x = q2.removeFirst();
-                tot1 += x;
-                tot2 -= x;
-                q1.add(x);
+        Queue<Integer> q2 = new LinkedList<>();
+        int queue2Sum = 0;
+        for(int i : queue2) {
+            queue2Sum+=i;
+            q2.offer(i);
+        }
+
+        int totalSum = queue1Sum + queue2Sum;
+        if(totalSum%2 != 0) {
+            return -1;
+        }
+
+        int len = queue1.length;
+        int resultSumValue = totalSum/2;
+        int count = 0;
+        while (queue1Sum != queue2Sum) {
+            count++;
+
+            if(queue1Sum > queue2Sum) {
+                int num = q1.poll();
+                if(num > resultSumValue) {
+                    return -1;
+                }
+
+                queue1Sum -= num;
+                queue2Sum += num;
+                q2.offer(num);
+            } else {
+                int num = q2.poll();
+                if(num > resultSumValue) {
+                    return -1;
+                }
+
+                queue2Sum -= num;
+                queue1Sum += num;
+                q1.offer(num);
             }
-            else{
-                int x = q1.removeFirst();
-                tot2 += x;
-                tot1 -= x;
-                q2.add(x);
+
+
+            if(count >= len*4) {
+                return -1;
             }
         }
 
-        return -1;
+
+        return count;
     }
 }
