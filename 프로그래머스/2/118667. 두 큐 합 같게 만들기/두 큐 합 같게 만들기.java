@@ -1,5 +1,5 @@
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.LinkedList;
 
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
@@ -7,9 +7,9 @@ class Solution {
         Queue<Integer> q1 = new LinkedList();
         Queue<Integer> q2 = new LinkedList();
         long tot1 = 0, tot2 = 0;
-        for (int j : queue1) {
-            tot1 += j;
-            q1.add(j);
+        for(int i = 0; i < n; i++){
+            tot1 += queue1[i];
+            q1.add(queue1[i]);
         }
         for(int i = 0; i < n; i++){
             tot2 += queue2[i];
