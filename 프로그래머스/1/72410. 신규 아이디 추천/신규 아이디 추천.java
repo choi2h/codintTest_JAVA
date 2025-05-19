@@ -2,7 +2,7 @@ class Solution {
     public String solution(String new_id) {
         
         // 1. 소문자 치환
-        new_id = toLowerCase(new_id);
+        new_id = new_id.toLowerCase();
         
         // 2. 소문자, 숫자, -, _, . 제외한 모든 문자 제거
         new_id = new_id.replaceAll("[^0-9a-z_\\-.]", "");
@@ -25,27 +25,14 @@ class Solution {
         return new_id;
     }
     
-    private String toLowerCase(String str){
-        return str.toLowerCase();
-    }
-    
     private String changeMultipleDotToSingleDot(String str) {
         String result = "";
         char[] charArray = str.toCharArray();
         for(int i=0; i<charArray.length; i++) {
-            if(charArray[i] == '.') {
-                int next = i;
-                while(next<charArray.length-1 && charArray[next] == '.') {
-                    next++;
-                }
-                
-                if(next-i > 0) {
-                    result += charArray[i];
-                    i = next-1;
-                }
-            } else {
-                result += charArray[i];                
-            }
+            if(charArray[i] == '.' && 
+               result.length() > 0 && 
+               result.charAt(result.length()-1) == '.') continue;
+            result += charArray[i];                
         }
         
         return result;
