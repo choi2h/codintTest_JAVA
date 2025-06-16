@@ -5,72 +5,38 @@ import java.util.*;
 
 public class Main {
 
-    static class Singer {
-        List<Integer> pre;
-        List<Integer> post;
-
-        public Singer(int n) {
-            pre = new ArrayList<>();
-            post = new ArrayList<>();
-        }
-
-        void addPre(int n) {
-            pre.add(n);
-        }
-
-        void addPost(int n) {
-            post.add(n);
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        List<Integer>[] list = new ArrayList[n+1];
+        List<Integer>[] singers = new ArrayList[n+1];
+        for(int i=0; i<n+1; i++) {
+            singers[i] = new ArrayList<>();
+        }
+
         for(int i=0; i<m; i++) {
             StringTokenizer input = new StringTokenizer(br.readLine());
 
-            list[i] = new ArrayList<>();
             int x = Integer.parseInt(input.nextToken());
+            int pre = 0;
             for(int j=0; j<x; j++) {
                 int next = Integer.parseInt(input.nextToken());
-                list[i].add(next);
+
+                if(j > 0) singers[next].add(pre);
+                pre = next;
             }
-        }
-
-        boolean isValid = true;
-        Singer[] singers = new Singer[n+1];
-        for(int i=0; i<n+1; i++) {
-            singers[i] = new Singer(n+1);
-        }
-
-        for(List<Integer> l : list) {
-            if(l == null) continue;
-            for(int i=0; i<l.size()-1; i++) {
-                int pre = l.get(i);
-                int post = l.get(i+1);
-
-                singers[post].addPre(pre);
-                singers[pre].addPost(post);
-            }
-        }
-
-        if(!isValid) {
-            System.out.println(0);
-            return;
         }
 
         String answer = solution(singers);
         System.out.println(answer);
     }
 
-    private static String solution(Singer[] singers) {
+    private static String solution(List<Integer>[] singers) {
         int[] orders = new int[singers.length];
         for(int i=1; i<singers.length; i++) {
-            if(singers[i].pre.isEmpty()) continue;
+            if(singers[i].isEmpty()) continue;
 
             Queue<Integer> queue = new LinkedList<>();
             queue.add(i);
@@ -82,7 +48,7 @@ public class Main {
                 if(visited[cur]) continue;
                 visited[cur] = true;
                 count++;
-                for (int next : singers[cur].pre) {
+                for (int next : singers[cur]) {
                     if(next == i) return "0";
                     if(!visited[next]) queue.add(next);
                 }
@@ -90,7 +56,6 @@ public class Main {
 
             orders[i] = count;
         }
-
 
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<orders.length; i++) {
