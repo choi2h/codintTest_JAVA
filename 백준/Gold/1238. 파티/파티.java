@@ -25,38 +25,38 @@ public class Main {
             villages[s].add(new int[]{e,t});
         }
 
+        int[] distsGoHome = getMinDistsForTarget(villages, x);
+
         int max = 0;
         for(int i=1; i<=n; i++) {
             if(i==x) continue;
-            int dist = getMinDistForTarget(villages, i, x) + getMinDistForTarget(villages, x, i);
+            int dist = getMinDistsForTarget(villages, i)[x] + distsGoHome[i];
             max = Math.max(max, dist);
         }
 
         System.out.println(max);
     }
 
-    private static int getMinDistForTarget(List<int[]>[] villages, int start, int target) {
-        int min = Integer.MAX_VALUE;
-        int[] records = new int[villages.length];
-        Queue<Integer> q = new LinkedList<>();
-        q.add(start);
+    private static int[] getMinDistsForTarget(List<int[]>[] villages, int start) {
+        int[] dists = new int[villages.length];
+        boolean[] visited = new boolean[villages.length];
+        PriorityQueue<int[]> q = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
+        q.add(new int[]{start, 0});
         while(!q.isEmpty()) {
-            int cur = q.poll();
+            int[] cur = q.poll();
 
-            for(int[] next : villages[cur]) {
+            if(visited[cur[0]]) continue;
+            visited[cur[0]] = true;
+            for(int[] next : villages[cur[0]]) {
                 int nextIndex = next[0];
-                int nextDist = next[1] + records[cur];
-                if(nextIndex == target) {
-                    min = Math.min(min, records[cur] + next[1]);
-                    continue;
-                }
+                int nextDist = dists[cur[0]] + next[1];
+                if(dists[nextIndex] != 0 && dists[nextIndex] <= nextDist) continue;
 
-                if(records[nextIndex] > 0 && records[nextIndex] <= nextDist) continue;
-                records[nextIndex] = nextDist;
-                q.add(nextIndex);
+                dists[nextIndex] = nextDist;
+                q.add(new int[]{nextIndex, nextDist});
             }
         }
 
-        return min;
+        return dists;
     }
 }
