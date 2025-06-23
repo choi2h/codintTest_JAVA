@@ -10,39 +10,39 @@ public class Main {
         int m = Integer.parseInt(input.nextToken());
         int n = Integer.parseInt(input.nextToken());
         int[][] arr = new int[m][n];
+        int[][] dp = new int[m][n];
 
         for(int i = 0; i < m; i++) {
             input = new StringTokenizer(br.readLine());
             for(int j=0; j<n; j++) {
                 arr[i][j] = Integer.parseInt(input.nextToken());
+                dp[i][j] = -1;
             }
         }
 
+        dp[m-1][n-1] = 1;
         int[][] movePoints = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        int[][] dp = new int[m][n];
-        boolean[][] visited = new boolean[m][n];
-        dp[m - 1][n - 1] = 1;
-        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o[2]));
-        queue.add(new int[]{m-1, n-1, arr[m-1][n-1]});
-        while(!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            int curX = cur[0], curY = cur[1], curHeight = cur[2];
+        dfs(arr, 0, 0, movePoints, dp);
 
-            if(visited[curX][curY]) continue;
-            visited[curX][curY] = true;
-            for(int[] move: movePoints) {
-                int x = curX + move[0];
-                int y = curY + move[1];
-
-                if(x < 0 || x >= arr.length
-                        || y<0 || y >= arr[0].length
-                        || arr[x][y] <= curHeight) continue;
-
-                queue.add(new int[]{x, y, arr[x][y]});
-                dp[x][y] += dp[curX][curY];
-            }
-        }
 
         System.out.println(dp[0][0]);
+    }
+
+    private static int dfs(int[][] arr, int x, int y, int[][] movePoints, int[][] dp) {
+        if(x >= arr.length && y >= arr[0].length) return 0;
+
+        int count = 0;
+        for(int[] move: movePoints) {
+            int mx = x + move[0], my = y + move[1];
+
+            if(mx < 0 || mx >= arr.length
+                    || my<0 || my >= arr[0].length
+                    || arr[mx][my] >= arr[x][y]) continue;
+
+            if(dp[mx][my] == -1) dfs(arr, mx, my, movePoints, dp);
+            count += dp[mx][my];
+        }
+
+        return dp[x][y] = count;
     }
 }
