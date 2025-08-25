@@ -4,31 +4,32 @@ import java.io.InputStreamReader;
 import java.util.Stack;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
         StringBuffer sb = new StringBuffer();
-        Stack<String> forward = new Stack<>();
-        Stack<String> backward = new Stack<>();
+        Stack<Character> forward = new Stack<>();
+        Stack<Character> backward = new Stack<>();
         while(n-- > 0) {
             String input = br.readLine();
 
-            for(String s : input.split("")) {
-                if(s.equals("-")) {
+            for(char c : input.toCharArray()) {
+                if(c == '-') {
                     if(!forward.isEmpty()) forward.pop();
-                } else if (s.equals("<")) {
+                } else if (c == '<') {
                     if(!forward.isEmpty()) backward.push(forward.pop());
-                } else if (s.equals(">")) {
+                } else if (c == '>') {
                     if(!backward.isEmpty()) forward.push(backward.pop());
                 } else {
-                    forward.push(s);
+                    forward.push(c);
                 }
             }
 
             StringBuilder result = new StringBuilder();
-            if(!forward.isEmpty()) result.append(String.join("", forward));
+            for(char c : forward) {
+                result.append(c);
+            }
             while(!backward.isEmpty()) {
                 result.append(backward.pop());
             }
@@ -38,6 +39,6 @@ public class Main {
             backward.clear();
         }
 
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
