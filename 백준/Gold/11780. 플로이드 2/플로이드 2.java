@@ -3,110 +3,101 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
+
+    private static final int MAX_VALUE = 100_001;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-        List<int[]>[] buses = new ArrayList[n + 1];
-        List<Integer>[][] routes = new ArrayList[n+1][n+1];
-        int[][] dp = new int[n + 1][n + 1];
-        for (int i = 0; i <= n; i++) {
-            buses[i] = new ArrayList<>();
-            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        // 제공되는 버스비용 저장
+        int[][] map = new int[n+1][n+1];
+        // 경로 저장
+        int[][] dp = new int[n+1][n+1];
 
-            for(int j = 0; j <= n; j++) {
-                routes[i][j] = new ArrayList<>();
+        // 오류 방지를 위한 배열 값 초기화
+        for (int i = 0; i <= n; i++) {
+            for(int j=0; j <= n; j++) {
+                if(i == j) continue;
+                map[i][j] = MAX_VALUE;
+                dp[i][j] = MAX_VALUE;
             }
         }
 
+        // 제공되는 버스 값 초기화
         StringTokenizer st;
-        for (int i = 0; i < m; i++) {
+        for(int i=0; i<m; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-
-            buses[a].add(new int[]{b, c});
+            map[a][b] = Math.min(map[a][b], c);
+            dp[a][b] = a;
         }
 
-        PriorityQueue<Route> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.cost));
-        boolean[] visited = new boolean[n + 1];
-        for (int i = 1; i <= n; i++) {
-            pq.add(new Route(i, 0));
-
-            while(!pq.isEmpty()) {
-                Route route = pq.poll();
-                int curNode = route.cur;
-                int curCost = route.cost;
-
-                if(visited[curNode]) continue;
-                visited[curNode] = true;
-                for(int[] bus : buses[curNode]) {
-                    int next = bus[0];
-                    int cost = curCost+bus[1];
-
-                    if(next == i || visited[next] || dp[i][next] <= cost) continue;
-                    dp[i][next] = cost;
-                    routes[i][next] = new ArrayList<>(route.nodes);
-                    pq.add(new Route(next, cost, routes[i][next]));
-                }
-            }
-
-            Arrays.fill(visited, false);
-        }
+        floydWarshall(n, map, dp);
 
         StringBuilder sb = new StringBuilder();
+        printMap(n, map, sb);
+        printRoute(n, map, dp, sb);
+        System.out.print(sb);
+    }
+
+    public static void floydWarshall(int n, int[][] map, int[][] dp) {
+        // 중간에 거쳐가는 정점 (k)
+        for(int k = 1; k <= n; k++) {
+            // 출발 정점 (i)
+            for(int i=1; i <= n; i++) {
+                // 도착 정점 (j)
+                for(int j=1; j <= n; j++) {
+                    if(map[i][j] > map[i][k] + map[k][j]) {
+                        // 기존에 저장된 최단 거리와 정점 k를 거쳐가는 (i → k) + (k → j) 경로 중 최소값
+                        map[i][j] = map[i][k] + map[k][j];
+                        // 중간 경로로 정점 k를 거쳐가도록 갱신
+                        dp[i][j] = dp[k][j];
+                    }
+                }
+            }
+        }
+    }
+
+    private static void printMap(int n, int[][] map, StringBuilder sb) {
         for(int i=1; i<=n; i++) {
-            int[] costs = dp[i];
             for(int j=1; j<=n; j++) {
-                int cost = costs[j];
-                sb.append(cost == Integer.MAX_VALUE ? 0 : cost).append(" ");
+                sb.append(map[i][j] == MAX_VALUE ? "0" : map[i][j]);
+                sb.append(" ");
             }
             sb.append("\n");
         }
+    }
 
+    private static void printRoute(int n, int[][] map, int[][] dp, StringBuilder sb) {
+        Stack<Integer> stack = new Stack<>();
         for(int i=1; i<=n; i++) {
             for(int j=1; j<=n; j++) {
-                List<Integer> route = routes[i][j];
-                if(route.isEmpty()) sb.append("0");
+                if(i == j || map[i][j] == MAX_VALUE || dp[i][j] == MAX_VALUE) sb.append("0");
                 else {
-                    sb.append(route.size()).append(" ");
-                    for(int node : route) {
-                        sb.append(node).append(" ");
+                    int pre = j;
+                    stack.push(j);
+                    while(i != dp[i][pre]) {
+                        pre = dp[i][pre];
+                        stack.push(pre);
+                    }
+
+                    sb.append(stack.size()+1).append(" ").append(i).append(" ");
+                    while(!stack.isEmpty()) {
+                        sb.append(stack.pop()).append(" ");
                     }
                 }
                 sb.append("\n");
             }
-        }
-
-        System.out.print(sb);
-    }
-
-    static class Route {
-        final int cur;
-        final int cost;
-        final List<Integer> nodes;
-
-        public Route(int cur, int cost) {
-            this.cur = cur;
-            this.cost = cost;
-            this.nodes = new ArrayList<>();
-            nodes.add(cur);
-        }
-
-        public Route(int cur, int cost, List<Integer> nodes) {
-            this.cur = cur;
-            this.cost = cost;
-            this.nodes = nodes;
-            nodes.add(cur);
         }
     }
 }
