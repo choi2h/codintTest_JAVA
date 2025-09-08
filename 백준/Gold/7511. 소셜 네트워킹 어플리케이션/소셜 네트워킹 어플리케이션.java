@@ -54,6 +54,6 @@ public class Main {
     private static int find(int[] arr, int a) {
         if(arr[a] == a) return a;
 
-        return find(arr, arr[a]);
+        return arr[a] = find(arr, arr[a]);
     }
 }
