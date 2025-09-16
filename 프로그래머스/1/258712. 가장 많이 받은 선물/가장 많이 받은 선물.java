@@ -11,7 +11,7 @@ class Solution {
         }
         
         int[] giftIndex = new int[friendsCount];
-        int[][][] giftCount = new int[friendsCount][friendsCount][1];
+        int[][] giftCount = new int[friendsCount][friendsCount];
         for(int i=0; i<gifts.length; i++) {
             String[] giftRecord = gifts[i].split(" ");
             int from = friendsMap.get(giftRecord[0]);
@@ -19,23 +19,22 @@ class Solution {
             
             giftIndex[from]++;
             giftIndex[to]--;
-            giftCount[from][to][0]++;
+            giftCount[from][to]++;
         }
         
         int answer = 0;
-        int[] receiveCount = new int[friendsCount];
         for(int i=0; i<friendsCount; i++) {
+            int count=0;
             for(int j=0; j<friendsCount; j++) {
                 if(i == j) continue;
                 
-                if((giftCount[i][j][0] == giftCount[j][i][0]
-                  && giftIndex[i] > giftIndex[j]) 
-                  || giftCount[i][j][0] > giftCount[j][i][0]){
-                    receiveCount[i]++;
+                if((giftCount[i][j] == giftCount[j][i] && giftIndex[i] > giftIndex[j]) 
+                  || giftCount[i][j] > giftCount[j][i]){
+                    count++;
                 }
             }
             
-            answer = Math.max(receiveCount[i], answer);
+            answer = Math.max(count, answer);
         }
         
         return answer;
