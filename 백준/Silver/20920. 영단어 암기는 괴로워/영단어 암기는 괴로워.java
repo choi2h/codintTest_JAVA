@@ -24,7 +24,7 @@ public class Main {
         list.sort((a,b) ->
             map.get(a) == map.get(b) ? 
                 (a.length() == b.length() ? 
-                    isBeforeBThanA(a,b)
+                    a.compareTo(b)
                     : b.length() - a.length()
                 ) : map.get(b) - map.get(a)
         );
@@ -34,15 +34,5 @@ public class Main {
             sb.append(key).append("\n");
         }
         System.out.print(sb);
-    }
-
-    private static int isBeforeBThanA(String a, String b) {
-        for(int i=0; i<a.length(); i++) {
-            if(a.charAt(i) == b.charAt(i)) continue;
-            return  a.charAt(i) - b.charAt(i);
-        }
-
-        return 0;
-    }
-    
+    }    
 }
