@@ -2,73 +2,70 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 class Solution {
-    private static final String LAST_TIME = "23:59";
+    private static final String IN_SIGN = "IN";
+    private static final String OUT_SIGN = "OUT";
+    private static final int[] MAX_TIME = new int[]{23, 59};
     
-    // fees 0-기본시간 1-기본요금 2-단위시간 3-단위요금
     public int[] solution(int[] fees, String[] records) {
-        Map<String, String> inCars = new HashMap<>();
-        Map<String, Integer> times = new HashMap<>();
-        for(String r : records) {
-            String[] record = r.split(" ");
-            String time = record[0];
-            String carNumber = record[1];
-            String type = record[2];
+        int baseTime = fees[0];
+        int baseFee = fees[1];
+        int unitTime = fees[2];
+        int unitFee = fees[3];
+        
+        Map<String, Integer> sumRecords = new HashMap<>();
+        Map<String, int[]> inRecords = new HashMap<>();
+        for(String record : records) {
+            String[] recordInfo = record.split(" ");
+            int[] time = convertStringToIntArr(recordInfo[0]);
+            String num = recordInfo[1];
+            String sign = recordInfo[2];
             
-            if (type.equals("IN")) {
-                inCars.put(carNumber, time);
-            } else {
-                int diffMinute = getDiffMinutes(inCars.get(carNumber), time);
-                times.put(carNumber, times.getOrDefault(carNumber, 0) + diffMinute);
-                inCars.remove(carNumber);
+            if(sign.equals(IN_SIGN)) inRecords.put(num, time);
+            else {
+                int timeInterval = getTimeInterval(inRecords.get(num), time);
+                sumRecords.put(num, sumRecords.getOrDefault(num, 0) + timeInterval);
+                inRecords.remove(num);
             }
         }
         
-        if(!inCars.isEmpty()) {
-            for(String carNumber : inCars.keySet()) {
-                int diffMinute = getDiffMinutes(inCars.get(carNumber), LAST_TIME);
-                times.put(carNumber, times.getOrDefault(carNumber, 0) + diffMinute);
+        for (String num : inRecords.keySet()) {
+            int timeInterval = getTimeInterval(inRecords.get(num), MAX_TIME);
+            sumRecords.put(num, sumRecords.getOrDefault(num, 0) + timeInterval);
+        }
+        
+        List<String> nums = new ArrayList<>(sumRecords.keySet());
+        Collections.sort(nums);
+        int[] answer = new int[sumRecords.size()];
+        for (int i=0; i<nums.size(); i++) {
+            int time = sumRecords.get(nums.get(i));
+            answer[i] += baseFee;
+            
+            if(time > baseTime) {
+                int overTime = time-baseTime;
+                answer[i] += ((overTime/unitTime) + (overTime%unitTime > 0 ? 1 : 0))*unitFee;
             }
         }
         
-        List<String> carNumbers = new ArrayList(times.keySet());
-        carNumbers.sort((a,b) -> Integer.parseInt(a)-Integer.parseInt(b));
         
-        int[] answer = new int[carNumbers.size()];
-        for(int i=0; i<carNumbers.size(); i++) {
-            int diffMinute = times.get(carNumbers.get(i));
-            int feeMinute = diffMinute > fees[0] ? diffMinute-fees[0] : 0;
-            answer[i] = calculateFee(fees, feeMinute);
-        }
-        
-            
         return answer;
     }
     
-    private int calculateFee(int[] fees, int feeMinute) {
-        int fee = fees[1];
-        if(feeMinute > 0) {
-            fee += (feeMinute/fees[2])*fees[3];
-            if(feeMinute%fees[2] > 0) fee += fees[3];
-        } 
+    private static int[] convertStringToIntArr(String time) {
+        String[] times = time.split(":");
+        int[] arr = new int[2];
+        for(int i=0; i<2; i++) {
+            arr[i] = Integer.parseInt(times[i]);
+        }
         
-        return fee;
+        return arr;
     }
     
-    private int getDiffMinutes(String inTime, String outTime) {
-        String[] inTimeValues = inTime.split(":");
-        String[] outTimeValues = outTime.split(":");
-        
-        int inHour = Integer.parseInt(inTimeValues[0]);
-        int inMinute = Integer.parseInt(inTimeValues[1]);
-        int outHour = Integer.parseInt(outTimeValues[0]);
-        int outMinute = Integer.parseInt(outTimeValues[1]);
-        
-        if(inHour == outHour) return outMinute-inMinute;
-        
-        int diffMinuts = (60-inMinute)+outMinute; 
-        int diffHours = outHour-(inHour+1);
-        return diffMinuts + (diffHours*60);
+    private static int getTimeInterval(int[] before, int[] after) {
+        int hour = after[0]-(before[0]+1);
+        int time = (60-before[1])+after[1];
+        return (hour*60) + time;
     }
 }
