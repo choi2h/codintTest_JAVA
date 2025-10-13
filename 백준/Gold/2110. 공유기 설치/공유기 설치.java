@@ -19,7 +19,7 @@ public class Main {
         Arrays.sort(houses);
 
         int answer = 0;
-        int l=0, r=houses[n-1], mid=0;
+        int l=0, r=houses[n-1]-houses[0], mid=0;
         while (l<=r) {
             mid = (l+r)/2;
 
