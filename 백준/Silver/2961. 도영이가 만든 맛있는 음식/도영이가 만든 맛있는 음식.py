@@ -5,19 +5,20 @@ def solve():
     ## 신맛 쓴맛
     arr = [ (*map(int, sys.stdin.readline().split()), ) for _ in range(N)]
     
-    def dfs(a, b, index, min_dif):
-        if not (a == 1 and b == 0):
+    min_dif = 1_000_000_001
+    def dfs(a, b, index):
+        nonlocal min_dif
+        
+        if index > 0:
             min_dif = min(min_dif, abs(a-b))
             
         if index >= N:
-            return min_dif
+            return
         
         for i in range(index, N):
-            min_dif = min(min_dif, dfs(a*arr[i][0], b+arr[i][1], i+1, min_dif))
+            dfs(a*arr[i][0], b+arr[i][1], i+1)
         
-        return min_dif
-        
-    min_dif = dfs(1, 0, 0, 1_000_000_001)
+    dfs(1, 0, 0)
     print(min_dif)
     
 if __name__ == "__main__":
