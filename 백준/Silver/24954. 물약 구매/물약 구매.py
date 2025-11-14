@@ -3,35 +3,36 @@ import sys
 def solve():
     N = int(sys.stdin.readline())
     coins = list(map(int, sys.stdin.readline().split()))
-    discounts = [[]] * N
+    discounts = [[] for _ in range(N)]
     for i in range(N):
         cnt = int(sys.stdin.readline())
-        if cnt > 0:
-            discounts[i] = [(*map(int, sys.stdin.readline().split()),) for _ in range(cnt)]
+        for _ in range(cnt):
+            a, b = map(int, sys.stdin.readline().split())
+            discounts[i].append((a-1, b))
     
     min_coin = 1_000 * 10
-    sum = [0] * N
+    ALL = (1<<N) - 1
+    sum_discount_coin = [0] * N
     def dfs(visited, use_coin):
-        nonlocal coins, discounts, min_coin, sum
-        if visited == (1<<N) - 1:
+        nonlocal min_coin
+        if visited == ALL:
             min_coin = min(use_coin, min_coin)
-        
-        
         
         for i in range(N):
             if visited & (1<<i):
                 continue
             
-            coin = use_coin+(1 if coins[i]-sum[i] <= 0 else coins[i]-sum[i])
-            if min_coin <= use_coin:
+            coin = coins[i]-sum_discount_coin[i]
+            coin = use_coin+(1 if coin <= 0 else coin)
+            if min_coin <= coin:
                 continue
             
             visited |= (1<<i)
             for d in discounts[i]:
-                sum[d[0]-1] += d[1]
+                sum_discount_coin[d[0]] += d[1]
             dfs(visited, coin)
             for d in discounts[i]:
-                sum[d[0]-1] -= d[1]
+                sum_discount_coin[d[0]] -= d[1]
             visited &= ~(1<<i)
     
     dfs(0, 0)
