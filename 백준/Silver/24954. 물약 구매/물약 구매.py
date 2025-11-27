@@ -1,4 +1,5 @@
 import sys
+from functools import lru_cache
 
 def solve():
     N = int(sys.stdin.readline())
@@ -13,6 +14,8 @@ def solve():
     min_coin = 1_000 * 10
     ALL = (1<<N) - 1
     sum_discount_coin = [0] * N
+    
+    @lru_cache(maxsize=None)
     def dfs(visited, use_coin):
         nonlocal min_coin
         if visited == ALL:
