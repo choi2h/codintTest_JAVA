@@ -10,11 +10,10 @@ def solve():
     check_cnt[0][0][0] = 1
     
     queue = deque()
-    queue.append((0, (0,0)))
+    queue.append((0,0,0))
     
     while queue:
-        isBreak, cur = queue.popleft()
-        x, y = cur
+        isBreak, x, y = queue.popleft()
         
         for move in MOVES:
             mx = x + move[0]
@@ -24,22 +23,15 @@ def solve():
 
                 if board[mx][my] == 0 and check_cnt[mx][my][isBreak] == 0:                
                     check_cnt[mx][my][isBreak] = check_cnt[x][y][isBreak]+1
-                    queue.append((isBreak, (mx, my)))
+                    queue.append((isBreak, mx, my))
                 elif isBreak == 0 and board[mx][my] == 1 and check_cnt[mx][my][isBreak] == 0:
                     check_cnt[mx][my][1] = check_cnt[x][y][isBreak]+1
-                    queue.append((1, (mx, my)))
-                elif isBreak == 0 and board[mx][my] == 0 and check_cnt[mx][my][isBreak] == 0:
-                    check_cnt[mx][my][isBreak] = check_cnt[x][y][isBreak]+1
-                    queue.append((isBreak, (mx, my)))
+                    queue.append((1, mx, my))
     
     a, b = check_cnt[N-1][M-1]
     if a > 0 and b > 0:
         return min(a,b)
-    elif a > 0:
-        return a
-    elif b > 0:
-        return b
-    return -1
+    return a if a > 0 else b if b > 0 else -1
      
     
     
