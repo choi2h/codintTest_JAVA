@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -21,31 +20,28 @@ public class Main {
         for (int i=0; i<N; i++) {
             int index = searchIndex(record, nums[i], max_cnt);
             record[index] = nums[i];
-            dp[i] = index+1;
+            dp[i] = index;
             if (max_cnt < index+1) {
                 max_cnt = index+1;
                 max_cnt_index = i;
             }
         }
 
-        Stack<Integer> stack = new Stack<>();
-        stack.push(nums[max_cnt_index]);
-        int before = nums[max_cnt_index];
-        max_cnt--;
-        int i = max_cnt_index-1;
-        while (max_cnt > 0) {
-            if (nums[i] < before && dp[i] == max_cnt) {
-                stack.push(nums[i]);
-                before = nums[i];
-                max_cnt--;
+        int[] answer_nums = new int[max_cnt];
+        int index = max_cnt-1;
+        answer_nums[index--] = nums[max_cnt_index];
+        for (int i=max_cnt_index-1; i>=0; i--) {
+            if (index < 0) break;
+
+            if (nums[i] < answer_nums[index+1] && dp[i] == index) {
+                answer_nums[index--] = nums[i];
             }
-            i--;
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(dp[max_cnt_index]).append("\n");
-        while (!stack.isEmpty()) {
-            sb.append(stack.pop()).append(" ");
+        sb.append(max_cnt).append("\n");
+        for (int i=0; i<max_cnt; i++) {
+            sb.append(answer_nums[i]).append(" ");
         }
 
         System.out.println(sb);
