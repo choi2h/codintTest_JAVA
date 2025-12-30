@@ -1,37 +1,40 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-    static int solution(int n, int maxWeight, int[][] stuffs) {
-        int[][] dp = new int[n + 1][maxWeight + 1];
-
-        for (int k = 1; k <= maxWeight; k++) { 
-            for (int i = 1; i <= n; i++) { 
-                dp[i][k] = dp[i - 1][k];
-                if (k >= stuffs[i][0]) {
-                    dp[i][k] = Math.max(dp[i - 1][k], stuffs[i][1] + dp[i - 1][k - stuffs[i][0]]);
-                }
-            }
-        }
-        return dp[n][maxWeight];
-    }
-
     public static void main(String[] args) throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        String[] values = bf.readLine().split(" ");
-        int n = Integer.parseInt(values[0]);
-        int maxWeight = Integer.parseInt(values[1]);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
-        int[][] stuffs = new int[n+1][2];
-        for(int i=1; i<=n; i++) {
-            String[] line = bf.readLine().split(" ");
-            stuffs[i][0] = Integer.parseInt(line[0]);
-            stuffs[i][1] = Integer.parseInt(line[1]);
+        int[][] stuffs = new int[N][2];
+        for (int i=0; i<N; i++) {
+            st = new StringTokenizer(br.readLine());
+            stuffs[i][0] = Integer.parseInt(st.nextToken());
+            stuffs[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        int result = solution(n, maxWeight, stuffs);
-        System.out.println(result);
+        int[] dp = new int[K+1];
+        for (int i=0; i<N; i++) {
+            int[] tmp = new int[K+1];
+            int w = stuffs[i][0];
+            for (int j=0; j<=K; j++) {
+                if (j < w) tmp[j] = dp[j];
+                else tmp[j] = Math.max(dp[j], dp[j-w] + stuffs[i][1]);
+            }
+
+            dp = tmp;
+        }
+
+        int max = 0;
+        for (int i=1; i<=K; i++) {
+            max = Math.max(dp[i], max);
+        }
+
+        System.out.println(max);
     }
 }
