@@ -39,23 +39,11 @@ public class Main {
         } else if (cnt == k) {
             System.out.println(cur%10);
         } else if (cur+1 <= N) {
-            System.out.println(getTargetNumber(cnt, cur+1, k));
+            String[] numStr = String.valueOf(cur+1).split("");
+            long idx = gap%m-1;
+            System.out.println(numStr[(int) idx]);
         } else {
             System.out.println(-1);
         }
-    }
-
-    private static int getTargetNumber(long cnt, long cur, long target) {
-        String[] numStr = String.valueOf(cur).split("");
-
-        for (String s : numStr) {
-            cnt++;
-
-            if (cnt == target) {
-                return Integer.parseInt(s);
-            }
-        }
-
-        return -1;
     }
 }
