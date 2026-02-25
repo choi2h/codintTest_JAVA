@@ -19,14 +19,12 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int[][] map = new int[N][M];
         int[][] check = new int[N][M];
         List<int[]> sharks = new ArrayList<>();
         for (int x=0; x<N; x++) {
             st = new StringTokenizer(br.readLine());
             for (int y=0; y<M; y++) {
                 int n = Integer.parseInt(st.nextToken());
-                map[x][y] = n;
                 check[x][y] = n == 1 ? 0 : MAX_VALUE;
                 if (n == 1) sharks.add(new int[]{x,y});
             }
