@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    private static Queue<int[]> queue = new LinkedList<>();
+    private static Queue<Integer> queue = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -58,29 +58,27 @@ public class Main {
         int cnt = items[s];
 
         dp[s] = 0;
-        queue.add(new int[]{s, 0});
+        queue.add(s);
         while (!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            int cp = cur[0];
-            int dist = cur[1];
+            int cur = queue.poll();
 
-            for (int[] road : roads[cp]) {
+            for (int[] road : roads[cur]) {
                 int np = road[0];
-                int nextDist = road[1] + dist;
+                int nextDist = road[1] + dp[cur];
                 if (dp[np] < nextDist || nextDist > m) continue;
+                dp[np] = nextDist;
 
                 if (!visited[np]) {
                     cnt += items[np];
                     visited[np] = true;
                 }
 
-                if (road[1] + dist < m) {
-                    queue.add(new int[]{np, nextDist});
+                if (road[1] + dp[cur] < m) {
+                    queue.add(np);
                 }
             }
         }
 
         return cnt;
     }
-
 }
