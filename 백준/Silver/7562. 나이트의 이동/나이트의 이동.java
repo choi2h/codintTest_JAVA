@@ -25,6 +25,8 @@ public class Main {
             int ey = Integer.parseInt(st.nextToken());
 
             sb.append(getShortestMoveCount(n, sx, sy, ex, ey)).append("\n");
+            xQueue.clear();
+            yQueue.clear();
         }
 
         System.out.println(sb);
@@ -46,18 +48,15 @@ public class Main {
             int cy = yQueue.poll();
             int nextCnt = board[cx][cy]+1;
 
-            if (board[ex][ey] <= nextCnt) continue;
-
             for (int i=0; i<MOVE_X.length; i++) {
                 int nx = cx + MOVE_X[i];
                 int ny = cy + MOVE_Y[i];
                 if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] > nextCnt) {
-                    board[nx][ny] = nextCnt;
+                    if (nx == ex && ny == ey) return nextCnt;
 
-                    if (nx != ex || ny != ey) {
-                        xQueue.add(nx);
-                        yQueue.add(ny);
-                    }
+                    board[nx][ny] = nextCnt;
+                    xQueue.add(nx);
+                    yQueue.add(ny);
                 }
             }
         }
