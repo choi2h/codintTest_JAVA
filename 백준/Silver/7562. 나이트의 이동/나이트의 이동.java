@@ -36,13 +36,12 @@ public class Main {
         if (sx == ex && sy == ey) return 0;
 
         int[][] board = new int[n][n];
-        for (int i=0; i<n; i++) {
-            Arrays.fill(board[i], Integer.MAX_VALUE);
-        }
+        boolean[][] visited = new boolean[n][n];
 
         xQueue.add(sx);
         yQueue.add(sy);
         board[sx][sy] = 0;
+        visited[sx][sy] = true;
         while (!xQueue.isEmpty() && !yQueue.isEmpty()) {
             int cx = xQueue.poll();
             int cy = yQueue.poll();
@@ -51,10 +50,11 @@ public class Main {
             for (int i=0; i<MOVE_X.length; i++) {
                 int nx = cx + MOVE_X[i];
                 int ny = cy + MOVE_Y[i];
-                if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] > nextCnt) {
+                if (nx >= 0 && nx < n && ny >= 0 && ny < n && !visited[nx][ny]) {
                     if (nx == ex && ny == ey) return nextCnt;
 
                     board[nx][ny] = nextCnt;
+                    visited[nx][ny] = true;
                     xQueue.add(nx);
                     yQueue.add(ny);
                 }
